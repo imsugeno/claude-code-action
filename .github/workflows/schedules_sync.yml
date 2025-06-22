@@ -11,7 +11,7 @@ name: Merge upstream branches
 on:
   # Runs on 10 minutes past every hour（毎 n 時 10 分に実行）
   schedule:
-    # Ref:
+    # Ref: 
     #   - https://help.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events-schedule
     #   - https://crontab.guru/examples.html
     # Cron format:
@@ -20,11 +20,11 @@ on:
     #         │ │ ┌───────────── day of the month (1 - 31)
     #         │ │ │ ┌───────────── month (1 - 12 or JAN-DEC)
     #         │ │ │ │ ┌───────────── day of the week (0 - 6 or SUN-SAT)
-    #         │ │ │ │ │
+    #         │ │ │ │ │                                   
     #         │ │ │ │ │
     #         │ │ │ │ │
     #         * * * * *
-    - cron: "0 10/1 * * *"
+    - cron:  '0 10/1 * * *'
 
 jobs:
   merge:
@@ -41,7 +41,7 @@ jobs:
         run: |
           git config --global user.name ${NAME}
           git config --global user.email ${EMAIL}
-
+          
           : # git rebase をデフォルトに設定
           git config --global pull.rebase merges
 
@@ -52,12 +52,12 @@ jobs:
 
           : # フォーク元のリポジトリをリモート先として "upstream" に命名
           git remote add upstream ${REPO_FORK}
-
+          
           : # upstream のブランチをローカルに取得
           git fetch upstream
-
+          
           : # main ブランチの変更をマージし、clone 元の main に push
-          : # ブランチ名を他に変更していたり、別のブランチにしている場合は注意
+          : # ブランチ名を main などに変更していたり、別のブランチにしている場合は注意
           git checkout main
           git merge --no-edit upstream/main
           git push origin main
